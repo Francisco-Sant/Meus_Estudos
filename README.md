@@ -36,8 +36,13 @@ Aqui estão algumas fontes de estudos recomendadas para cada tópico:
 #### Vale apena ler
 - [Guia de Bash no GNU](https://www.gnu.org/software/bash/manual/)
 
-  ### Configurações de Ambintes Linux, Docker e muito mais!!!
+### Docker 
+- [Livro](https://leanpub.com/dockerparadesenvolvedores)
+- [Docker para inciantes](https://www.youtube.com/watch?v=w8xCdFa0VZA&list=PLViOsriojeLrdw5VByn96gphHFxqH3O_N&index=15&ab_channel=TechEduca)
+  
+### Configurações de Ambientes Linux, Docker, GitHub e tudo sobre tecnologia!!!
 - [Github Felipe Pimente](https://github.com/felipementel/my-environment)
+- [Canal DEPLOY](https://www.youtube.com/@D.E.P.L.O.Y/featured)
 
 ## Como Contribuir
 
