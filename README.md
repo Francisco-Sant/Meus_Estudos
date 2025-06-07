@@ -23,6 +23,7 @@ Aqui estão algumas fontes de estudos recomendadas para cada tópico:
 ### Bash
 - [Bash Academy](https://guide.bash.academy/)
 - [Canal Debxp youtube](https://www.youtube.com/watch?v=ZM--I3NJ2jY&list=PLXoSGejyuQGpf4X-NdGjvSlEFZhn2f2H7&index=1&ab_channel=debxp)
+- [Trilha GNU/Linux](https://blauaraujo.com/tgl)
 
 ### Git
 - [Documentação Oficial do Git](https://git-scm.com/doc)
@@ -34,6 +35,14 @@ Aqui estão algumas fontes de estudos recomendadas para cada tópico:
 - [DlteC cursos](https://www.dltec.com.br/)
 #### Vale apena ler
 - [Guia de Bash no GNU](https://www.gnu.org/software/bash/manual/)
+
+### Docker 
+- [Livro](https://leanpub.com/dockerparadesenvolvedores)
+- [Docker para inciantes](https://www.youtube.com/watch?v=w8xCdFa0VZA&list=PLViOsriojeLrdw5VByn96gphHFxqH3O_N&index=15&ab_channel=TechEduca)
+  
+### Configurações de Ambientes Linux, Docker, GitHub e tudo sobre tecnologia!!!
+- [Github Felipe Pimente](https://github.com/felipementel/my-environment)
+- [Canal DEPLOY](https://www.youtube.com/@D.E.P.L.O.Y/featured)
 
 ## Como Contribuir
 
