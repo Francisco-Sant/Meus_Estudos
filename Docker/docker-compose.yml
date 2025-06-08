@@ -9,13 +9,17 @@ services:
       - .:/code
     labels:
       - 'app.environment=${ENV_APP}'
+    environment:
+      - HOST_RUN=${HOST_RUN}
+      - DEBUG=${DEBUG}  
 
-  redis':
-    image: redis
+  redis:
+    image: redis:3.2.8
     volumes:
-      - dados_devel:/data
+      - dados:/data
     labels:
-      - 'app.environment=${ENV_APP}'
+      - "app.environment=${ENV_APP}"
 
 volumes:
-  dados_devel:
+  dados:
+    external: false
