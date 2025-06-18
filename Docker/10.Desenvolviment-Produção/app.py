@@ -16,7 +16,7 @@ def hello():
 
 if __name__ == "__main__":
     def server_handler(signum, frame):
-        print 'Signal handler called with signal:', signum
+        print ('Signal handler called with signal', signum)
 
         server.terminate()
         server.join()
