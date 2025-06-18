@@ -8,6 +8,8 @@
 - [Gerenciamento de Redes](#gerenciamento-de-redes)
 - [Portas e Execução](#portas-e-execução)
 - [Comandos Avançados](#comandos-avançados)
+- [Monitoramento](#monitoramento)
+- [Gerenciamento de Volumes](#gerenciamento-de-volumes)
 
 ---
 
@@ -34,8 +36,11 @@
 | `docker exec -it "nome do container" top`                    | Verifica todos os processos do contêiner em execução         |
 | `docker container rm "hash do container" -f`                 | Força a exclusão de um contêiner                             |
 | `docker start -ai "nome ou hash"`                            | Inicia um contêiner existente                                |
-| `docker container prune`                                     | Deleta todos os contêineres em stop                          |
+| `docker container prune`                                     | Remove todos os contêineres sem uso (parados)                |
 | `docker run -dit "nome_do_container"`                        | Roda contêiner em background                                 |
+| `docker stop $(docker ps -q)`                                | Para todos os containers em execução                         |
+| `docker ps -f "status=exited"`                               | Lista apenas os containers parados                           |
+| `docker exec -it container bash`                             | Acessa o terminal do container                               |
 
 ---
 
@@ -49,6 +54,9 @@
 | `docker rmi $(docker images -q)`                             | Deleta todas as imagens existentes                           |
 | `docker commit "nome do contêiner" "nome da nova imagem"`    | Cria uma imagem com base nas alterações no contêiner         |
 | `docker images \| grep "nome" \| awk '{print $3}' \| xargs docker rmi` | Deleta várias imagens de um determinado grupo        |
+| `docker image prune`                                         | Remove todas as imagens locais não utilizadas                |
+| `docker save -o imagem.docker imagem`                        | Salva uma imagem em um arquivo                               |
+| `docker load -i imagem.docker`                               | Carrega uma imagem salva de um arquivo                       |
 
 ---
 
@@ -83,6 +91,22 @@
 | `docker system prune`                                        | Todos os contêineres que não estão em uso no momento           |
 |                                                              | Todos os volumes que não estão em uso por ao menos um contêiner|
 |                                                              | Todas as imagens danglin                                       |
+
+---
+
+## Monitoramento
+
+| Comando                                                      | Detalhes                                                     |
+|--------------------------------------------------------------|--------------------------------------------------------------|
+| `docker stats $(docker ps --format {{.Names}})`              | Mostra uso de recursos dos containers rodando                |
+
+---
+
+## Gerenciamento de Volumes
+
+| Comando                                                      | Detalhes                                                     |
+|--------------------------------------------------------------|--------------------------------------------------------------|
+| `docker volume prune`                                        | Remove volumes “órfãos” (não utilizados por nenhum container)|
 
 ---
 
