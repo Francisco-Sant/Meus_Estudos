@@ -79,10 +79,10 @@
 | `docker stop "nome de contêiner"`                            | Pausa o contêiner, mas não mantém os processos          |
 | `docker logs -f "container_name"`                            | Comando para recuperar os logs                          |
 | `docker container run --rm -v /usr/share/nginx/html --name nginx_teste nginx` | Para criar um volume em determinado contêiner |
-|                                         |                    | Todas as redes que não estão em uso por ao menos um container  |
-| `docker system prune`                                        | Todos os contêineres que não estão em uso no momento    |
+|                                                              | Todas as redes que não estão em uso por ao menos um container  |
+| `docker system prune`                                        | Todos os contêineres que não estão em uso no momento           |
 |                                                              | Todos os volumes que não estão em uso por ao menos um contêiner|
-|                                                              | Todas as imagens danglin                                |
+|                                                              | Todas as imagens danglin                                       |
 
 ---
 
