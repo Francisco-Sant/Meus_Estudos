@@ -87,10 +87,10 @@
 | `docker stop "nome de contêiner"`                            | Pausa o contêiner, mas não mantém os processos          |
 | `docker logs -f "container_name"`                            | Comando para recuperar os logs                          |
 | `docker container run --rm -v /usr/share/nginx/html --name nginx_teste nginx` | Para criar um volume em determinado contêiner |
-|                                                              | Todas as redes que não estão em uso por ao menos um container  |
-| `docker system prune`                                        | Todos os contêineres que não estão em uso no momento           |
-|                                                              | Todos os volumes que não estão em uso por ao menos um contêiner|
-|                                                              | Todas as imagens danglin                                       |
+|                                                              | Deleta todas as redes que não estão em uso por ao menos um container  |
+| `docker system prune`                                        | Deleta todos os contêineres que não estão em uso no momento           |
+|                                                              | Deleta todos os volumes que não estão em uso por ao menos um contêiner|
+|                                                              | Deleta todas as imagens danglin                                       |
 
 ---
 
@@ -107,6 +107,13 @@
 | Comando                                                      | Detalhes                                                     |
 |--------------------------------------------------------------|--------------------------------------------------------------|
 | `docker volume prune`                                        | Remove volumes “órfãos” (não utilizados por nenhum container)|
+| `docker volume ls`                                           | Lista todos os volumes criados                               |
+| `docker volume create "volume_name"`                         | Cria um volume                                               |
+| `docker volume rm "volume_name"`                             | Remove um volume desejado                                    |
+| `docker run -it -v "dir_volume" "image_name"`                | Cria um container com um diretorio onde o volume sera persistido |
+| `docker inspect "name_container"`                            | Este comando é usado para analizar o container, mas nesse caso você pode usar para procurar a flag  "Mounts", nessa aréa você vera o caminho onde o volume esta sendo persistido |
+| `docker run -it -v "/dir-docker-host:""/dir-do-container" "image"`| Cria um container onde você define uma local no docker-host e no container para percistencia de volume|
+
 
 ---
 
