@@ -64,8 +64,13 @@
 
 | Comando                                                      | Detalhes                                  |
 |--------------------------------------------------------------|-------------------------------------------|
-| `docker network create --driver bridge "nome da rede"`       | Cria uma rede isolada criada pelo usuário |
-| `docker network list`                                        | Lista as redes no Docker                  |
+| `docker network create --driver bridge "nome da rede"`       | Cria uma rede isolada                     |
+| `docker network ls`                                          | Lista as redes no Docker                  |
+| `docker network inspect "name-rede"`                         | Ao inspecionar a rede bridger você consegue verificar todos so containes que estão na rede |
+| `docker network disconnect "name-rede" "name-container"`     | Disconecta um conteiner da rede atual     |
+| `docker network connect "name-rede" "name-container"`        | Conecta um conteiner a rede que você deseja |
+| `docker run -it --network "name-rede" "name-image"`          | Cria um container em uma rede especifica  |
+
 
 ---
 
