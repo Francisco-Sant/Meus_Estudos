@@ -41,6 +41,8 @@
 | `docker stop $(docker ps -q)`                                | Para todos os containers em execução                         |
 | `docker ps -f "status=exited"`                               | Lista apenas os containers parados                           |
 | `docker exec -it container bash`                             | Acessa o terminal do container                               |
+| `docker rm "name-container ou ID-container"`                 | Deleta container pausado                                     |
+| `docker rm -f "name-container ou ID-container"`              | Deleta containe que esteja UP                                |
 
 ---
 
