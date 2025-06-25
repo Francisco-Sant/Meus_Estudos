@@ -122,6 +122,16 @@
 
 ---
 
+## Gerenciamento Docker Compose
+
+| Comando                                                      | Detalhes                                                     |
+|--------------------------------------------------------------|--------------------------------------------------------------|
+| `docker compose up`                                          | Roda o docker-compose no diretorio atual                     |
+| `docker compose up -d`                                       | Roda o docker-compose no diretorio atual em backgrund        |
+| `docker compose stop`                                        | Para o docker-compose em execução                            |
+
+---
+
 ### Observações
 
 - Sempre adapte os comandos conforme sua necessidade.
