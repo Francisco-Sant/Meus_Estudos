@@ -1,0 +1,35 @@
+version: '3'
+services: 
+  meu-blog:
+    image: wordpress:6.2.2
+    container_name: wordpress 
+    restart: always
+    env_file:
+      - .env 
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - meu-blog
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - meu-blog
+networks:
+  meu-blog:
+    driver: bridge
+volumes:
+  wordpress:
+  db:    
+    
