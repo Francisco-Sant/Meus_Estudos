@@ -41,6 +41,8 @@
 | `docker stop $(docker ps -q)`                                | Para todos os containers em execução                         |
 | `docker ps -f "status=exited"`                               | Lista apenas os containers parados                           |
 | `docker exec -it container bash`                             | Acessa o terminal do container                               |
+| `docker rm "name-container ou ID-container"`                 | Deleta container pausado                                     |
+| `docker rm -f "name-container ou ID-container"`              | Deleta containe que esteja UP                                |
 
 ---
 
@@ -64,8 +66,13 @@
 
 | Comando                                                      | Detalhes                                  |
 |--------------------------------------------------------------|-------------------------------------------|
-| `docker network create --driver bridge "nome da rede"`       | Cria uma rede isolada criada pelo usuário |
-| `docker network list`                                        | Lista as redes no Docker                  |
+| `docker network create --driver bridge "nome da rede"`       | Cria uma rede isolada                     |
+| `docker network ls`                                          | Lista as redes no Docker                  |
+| `docker network inspect "name-rede"`                         | Ao inspecionar a rede bridger você consegue verificar todos so containes que estão na rede |
+| `docker network disconnect "name-rede" "name-container"`     | Disconecta um conteiner da rede atual     |
+| `docker network connect "name-rede" "name-container"`        | Conecta um conteiner a rede que você deseja |
+| `docker run -it --network "name-rede" "name-image"`          | Cria um container em uma rede especifica  |
+
 
 ---
 
@@ -112,6 +119,16 @@
 | `docker run -it -v "/dir-docker-host:""/dir-do-container" "image"`      | Cria um container onde você define uma local no docker-host e no container para percistencia de volume|
 | `docker run -it --tmpfs="/name-dir" "name-image"`                       | Cria um container com um diretorio de persistencia de volumes volatil, pois ai derrubar o container os dados criados neste local seram deletados| 
 | `docker run -it --mount type=tmpfs,destination="name-dir" "name-image"` | Este é o mesmo exemplo do caso acima mas usando o -mount | 
+
+---
+
+## Gerenciamento Docker Compose
+
+| Comando                                                      | Detalhes                                                     |
+|--------------------------------------------------------------|--------------------------------------------------------------|
+| `docker compose up`                                          | Roda o docker-compose no diretorio atual                     |
+| `docker compose up -d`                                       | Roda o docker-compose no diretorio atual em backgrund        |
+| `docker compose stop`                                        | Para o docker-compose em execução                            |
 
 ---
 
