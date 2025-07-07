@@ -33,6 +33,7 @@ Aqui estão algumas fontes de estudos recomendadas para cada tópico:
 ### Linux
 - [4linux](https://4linux.com.br/cursos/treinamento/linux-fundamentals/)
 - [DlteC cursos](https://www.dltec.com.br/)
+- [Guia Foca - PDF para estudos](https://www.guiafoca.org/)
 #### Vale apena ler
 - [Guia de Bash no GNU](https://www.gnu.org/software/bash/manual/)
 
