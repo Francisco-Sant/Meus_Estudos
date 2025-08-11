@@ -129,7 +129,10 @@
 | `docker compose up`                                          | Roda o docker-compose no diretorio atual                     |
 | `docker compose up -d`                                       | Roda o docker-compose no diretorio atual em backgrund        |
 | `docker compose stop`                                        | Para o docker-compose em execução                            |
-
+| `docker compose down`                                        | Remove tudo que foi declarodo compose que esta em execução   |
+| `docker compose start`                                       | Inicia o container criado pelo compose que estava parado     |
+| `docker compose up -d --remove-orphans`                      | Romove todos os containes orfãos                             |
+       
 ---
 
 ### Observações
