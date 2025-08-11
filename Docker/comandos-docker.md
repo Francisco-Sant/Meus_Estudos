@@ -43,6 +43,7 @@
 | `docker exec -it container bash`                             | Acessa o terminal do container                               |
 | `docker rm "name-container ou ID-container"`                 | Deleta container pausado                                     |
 | `docker rm -f "name-container ou ID-container"`              | Deleta containe que esteja UP                                |
+| `docker container rm -f $(docker container ls -qa)`          | Deleta todos os container parados ou em execução             |
 
 ---
 
@@ -59,6 +60,9 @@
 | `docker image prune`                                         | Remove todas as imagens locais não utilizadas                |
 | `docker save -o imagem.docker imagem`                        | Salva uma imagem em um arquivo                               |
 | `docker load -i imagem.docker`                               | Carrega uma imagem salva de um arquivo                       |
+| `docker image history "name image"`                          | Mostra mostra todas a camadas de contrução da image e meta dados|
+| `docker image inspect "name image"`                          | Mostra toda a rais da imagem                                 |
+| `docker buid -t "image name" -f Dockerfile .`                | Cria ima imagem apartir do Dockerfile                        |
 
 ---
 
