@@ -33,7 +33,6 @@
 | `docker kill "nome do container"`                            | Mata de uma vez o contêiner em execução                      |
 | `docker paused "nome do container"`                          | Pausa o contêiner, mas mantém os processos                   |
 | `docker restart "nome do container"`                         | Reinicia o contêiner e seus processos                        |
-| `docker exec -it "nome do container" top`                    | Verifica todos os processos do contêiner em execução         |
 | `docker container rm "hash do container" -f`                 | Força a exclusão de um contêiner                             |
 | `docker start -ai "nome ou hash"`                            | Inicia um contêiner existente                                |
 | `docker container prune`                                     | Remove todos os contêineres sem uso (parados)                |
@@ -43,6 +42,7 @@
 | `docker exec -it container bash`                             | Acessa o terminal do container                               |
 | `docker rm "name-container ou ID-container"`                 | Deleta container pausado                                     |
 | `docker rm -f "name-container ou ID-container"`              | Deleta containe que esteja UP                                |
+| `docker container rm -f $(docker container ls -qa)`          | Deleta todos os container parados ou em execução             |
 
 ---
 
@@ -56,9 +56,9 @@
 | `docker rmi $(docker images -q)`                             | Deleta todas as imagens existentes                           |
 | `docker commit "nome do contêiner" "nome da nova imagem"`    | Cria uma imagem com base nas alterações no contêiner         |
 | `docker images \| grep "nome" \| awk '{print $3}' \| xargs docker rmi` | Deleta várias imagens de um determinado grupo        |
-| `docker image prune`                                         | Remove todas as imagens locais não utilizadas                |
 | `docker save -o imagem.docker imagem`                        | Salva uma imagem em um arquivo                               |
 | `docker load -i imagem.docker`                               | Carrega uma imagem salva de um arquivo                       |
+| `docker image history "name image"`                          | Mostra mostra todas a camadas de contrução da image e meta dados|
 
 ---
 
@@ -129,6 +129,33 @@
 | `docker compose up`                                          | Roda o docker-compose no diretorio atual                     |
 | `docker compose up -d`                                       | Roda o docker-compose no diretorio atual em backgrund        |
 | `docker compose stop`                                        | Para o docker-compose em execução                            |
+| `docker compose down`                                        | Remove tudo que foi declarodo compose que esta em execução   |
+| `docker compose start`                                       | Inicia o container criado pelo compose que estava parado     |
+| `docker compose up -d --remove-orphans`                      | Romove todos os containes orfãos                             |
+
+---
+
+## Comandos Avançados Docker Compose
+
+| Comando | Detalhes |
+|---|---|
+| `docker compose up -d --build` | Sobe a aplicação construindo a imagem |
+| `docker compose build` | Criação de imagem |
+| `docker compose push` | Sobe as imagens do projeto direto para o repositório |
+| `docker compose pull` | Baixa as imagens referentes à aplicação |
+| `docker compose config` | Exibe toda a configuração do compose para confirmar se os parâmetros estão corretos |
+| `docker compose --env-file "arquivo .env" config` | Exibe toda a configuração do compose para confirmar se os parâmetros do arquivo .env informado |
+| `docker compose --env-file "arquivo .env" up -d` | Sobe a aplicação definindo os parâmetros do arquivo .env caso tenha mais de um arquivo .env |
+| `VAR_VER=v3 docker compose --env-file "arquivo .env" build` | Criação de imagem com o docker compose usando variável de ambiente |
+| `docker compose up -d --build --remove-orphans` | Builda a imagem, sobe a aplicação e remove contêineres órfãos |
+| `docker compose -f compose.yaml -f "name other compose" up -d` | Faz o merge de arquivos compose |
+| `docker compose --profile dev up -d` | Sobe a aplicação informando o ambiente definido no profile |
+| `docker compose ps` | Exibe todos os contêineres que fazem parte do compose |
+| `docker compose logs` | Exibe todos os logs dos containers que fazem parte do compose |
+| `docker compose logs "container name"` | Exibe apenas os logs do contêiner informado que faz parte do compose |
+| `docker compose exec "container name" "comando"` | Executa um comando ou ação no container informado |
+| `docker info` | Informa configurações do docker e dados como quantidade de container, imagem, etc. |
+| `docker events` | Informa todos os eventos em tempo real no docker, como criação de container, network, exclusão, etc. |
 
 ---
 
