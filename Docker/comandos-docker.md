@@ -10,6 +10,8 @@
 - [Comandos Avançados](#comandos-avançados)
 - [Monitoramento](#monitoramento)
 - [Gerenciamento de Volumes](#gerenciamento-de-volumes)
+- [Gerenciamento Docker Compose](#gerenciamento-docker-compose)
+- [Comandos Avançados Docker Compose](#comandos-avançados-docker-compose)
 
 ---
 
@@ -19,6 +21,9 @@
 |--------------------------------|-----------------------------------------------|
 | `sudo service docker status`   | Verifica o status do Docker                   |
 | `sudo service docker start`    | Inicia o serviço do Docker                    |
+| `sudo systemctl stop docker`   | Para o serviço do Docker no host              |
+| `sudo systemctl start docker`  | Inicia o serviço do Docker no host            |
+| `sudo systemctl status docker` | Visualiza o status do Docker                  |
 
 ---
 
@@ -41,8 +46,13 @@
 | `docker ps -f "status=exited"`                               | Lista apenas os containers parados                           |
 | `docker exec -it container bash`                             | Acessa o terminal do container                               |
 | `docker rm "name-container ou ID-container"`                 | Deleta container pausado                                     |
-| `docker rm -f "name-container ou ID-container"`              | Deleta containe que esteja UP                                |
-| `docker container rm -f $(docker container ls -qa)`          | Deleta todos os container parados ou em execução             |
+| `docker rm -f "name-container ou ID-container"`              | Deleta container que esteja UP                               |
+| `docker container rm -f $(docker container ls -qa)`          | Deleta todos os containers parados ou em execução            |
+| `docker run -d --restart=on-failure "image name"`            | Reinicia o container em caso de falha                        |
+| `docker run -d --restart=on-failure:3 "image name"`          | Reinicia até 3 vezes em caso de falha                        |
+| `docker run -d --restart=unless-stopped "image name"`        | Reinicia em caso de falha ou parada do serviço               |
+| `docker run -d --restart=always "image name"`                | Reinicia em qualquer situação                                |
+| `watch 'docker container ls -a'`                             | Monitora status dos containers a cada 2 segundos             |
 
 ---
 
@@ -58,7 +68,7 @@
 | `docker images \| grep "nome" \| awk '{print $3}' \| xargs docker rmi` | Deleta várias imagens de um determinado grupo        |
 | `docker save -o imagem.docker imagem`                        | Salva uma imagem em um arquivo                               |
 | `docker load -i imagem.docker`                               | Carrega uma imagem salva de um arquivo                       |
-| `docker image history "name image"`                          | Mostra mostra todas a camadas de contrução da image e meta dados|
+| `docker image history "name image"`                          | Mostra todas as camadas de construção da imagem e metadados  |
 
 ---
 
@@ -68,10 +78,10 @@
 |--------------------------------------------------------------|-------------------------------------------|
 | `docker network create --driver bridge "nome da rede"`       | Cria uma rede isolada                     |
 | `docker network ls`                                          | Lista as redes no Docker                  |
-| `docker network inspect "name-rede"`                         | Ao inspecionar a rede bridger você consegue verificar todos so containes que estão na rede |
-| `docker network disconnect "name-rede" "name-container"`     | Disconecta um conteiner da rede atual     |
-| `docker network connect "name-rede" "name-container"`        | Conecta um conteiner a rede que você deseja |
-| `docker run -it --network "name-rede" "name-image"`          | Cria um container em uma rede especifica  |
+| `docker network inspect "name-rede"`                         | Inspeciona a rede e mostra containers conectados |
+| `docker network disconnect "name-rede" "name-container"`     | Desconecta um container da rede atual     |
+| `docker network connect "name-rede" "name-container"`        | Conecta um container à rede desejada      |
+| `docker run -it --network "name-rede" "name-image"`          | Cria um container em uma rede específica  |
 
 
 ---
@@ -92,10 +102,10 @@
 | Comando                                                      | Detalhes                                                |
 |--------------------------------------------------------------|---------------------------------------------------------|
 | `docker stop "nome de contêiner"`                            | Pausa o contêiner, mas não mantém os processos          |
-| `docker logs -f "container_name"`                            | Comando para recuperar os logs                          |
-| `docker container run --rm -v /usr/share/nginx/html --name nginx_teste nginx` | Para criar um volume em determinado contêiner |
-| `docker system prune`                                        | Deleta todas as redes que não estão em uso por ao menos um container, Deleta todos os contêineres que não estão em uso no momento, Deleta todos os volumes que não estão em uso por ao menos um contêiner, Deleta todas as imagens danglin |
-                                                                            
+| `docker logs -f "container_name"`                            | Recupera os logs do container                           |
+| `docker container run --rm -v /usr/share/nginx/html --name "name-container" "image name" ` | Cria um volume em determinado contêiner                 |
+| `docker system prune`                                        | Remove recursos não utilizados: redes, containers, volumes, imagens dangling |
+
 ---
 
 ## Monitoramento
@@ -103,6 +113,13 @@
 | Comando                                                      | Detalhes                                                     |
 |--------------------------------------------------------------|--------------------------------------------------------------|
 | `docker stats $(docker ps --format {{.Names}})`              | Mostra uso de recursos dos containers rodando                |
+| `docker stats --no-stream`                                   | Mostra o consumo de recursos dos containers sem atualização contínua |
+| `docker stats "ID container"`                                | Mostra o consumo de recursos do container informado          |
+| `docker stats --no-trunc`                                    | Mostra o consumo de recursos dos containers sem truncar saída|
+| `docker top "ID container"`                                  | Verifica os serviços rodando dentro do container             |
+| `docker events --since 2h --filter type=network`             | Filtra eventos de rede das últimas 2 horas                   |
+| `docker container logs --since 1m "ID do container"`         | Mostra os logs do container há um minuto atrás               |
+| `docker events`      | Informa todos os eventos em tempo real no docker, como criação de container, network, exclusão, etc. |
 
 ---
 
@@ -114,11 +131,15 @@
 | `docker volume ls`                                           | Lista todos os volumes criados                               |
 | `docker volume create "volume_name"`                         | Cria um volume                                               |
 | `docker volume rm "volume_name"`                             | Remove um volume desejado                                    |
-| `docker run -it -v "dir_volume" "image_name"`                | Cria um container com um diretorio onde o volume sera persistido |
-| `docker inspect "name_container"`                            | Este comando é usado para analizar o container, mas nesse caso você pode usar para procurar a flag  "Mounts", nessa aréa você vera o caminho onde o volume esta sendo persistido |
-| `docker run -it -v "/dir-docker-host:""/dir-do-container" "image"`      | Cria um container onde você define uma local no docker-host e no container para percistencia de volume|
-| `docker run -it --tmpfs="/name-dir" "name-image"`                       | Cria um container com um diretorio de persistencia de volumes volatil, pois ai derrubar o container os dados criados neste local seram deletados| 
-| `docker run -it --mount type=tmpfs,destination="name-dir" "name-image"` | Este é o mesmo exemplo do caso acima mas usando o -mount | 
+| `docker run -it -v "dir_volume" "image_name"`                | Cria um container com um diretório onde o volume será persistido |
+| `docker inspect "name_container"`                            | Analisa o container e mostra o caminho do volume em "Mounts" |
+| `docker run -it -v "/dir-docker-host:""/dir-do-container" "image"` | Define diretório do host e do container para persistência de volume|
+| `docker run -it --tmpfs="/name-dir" "name-image"`            | Cria diretório de persistência volátil (dados removidos ao parar o container)|
+| `docker run -it --mount type=tmpfs,destination="name-dir" "name-image"` | Mesmo exemplo acima usando --mount                           |
+| `docker volume inspect "volume_name"`                        | Exibe detalhes sobre um volume específico                    |
+| `docker run -it --mount source="volume_name",target="/app" "image_name"` | Monta um volume existente em um diretório do container       |
+| `docker run -it -v "volume_name:/app" "image_name"`          | Monta um volume existente usando a flag -v                   |
+| `docker volume rm $(docker volume ls -qf dangling=true)`     | Remove todos os volumes dangling (não utilizados)            |
 
 ---
 
@@ -126,12 +147,12 @@
 
 | Comando                                                      | Detalhes                                                     |
 |--------------------------------------------------------------|--------------------------------------------------------------|
-| `docker compose up`                                          | Roda o docker-compose no diretorio atual                     |
-| `docker compose up -d`                                       | Roda o docker-compose no diretorio atual em backgrund        |
+| `docker compose up`                                          | Roda o docker-compose no diretório atual                     |
+| `docker compose up -d`                                       | Roda o docker-compose no diretório atual em background        |
 | `docker compose stop`                                        | Para o docker-compose em execução                            |
-| `docker compose down`                                        | Remove tudo que foi declarodo compose que esta em execução   |
+| `docker compose down`                                        | Remove tudo que foi declarado no compose que está em execução|
 | `docker compose start`                                       | Inicia o container criado pelo compose que estava parado     |
-| `docker compose up -d --remove-orphans`                      | Romove todos os containes orfãos                             |
+| `docker compose up -d --remove-orphans`                      | Remove todos os containers órfãos                            |
 
 ---
 
@@ -155,7 +176,7 @@
 | `docker compose logs "container name"` | Exibe apenas os logs do contêiner informado que faz parte do compose |
 | `docker compose exec "container name" "comando"` | Executa um comando ou ação no container informado |
 | `docker info` | Informa configurações do docker e dados como quantidade de container, imagem, etc. |
-| `docker events` | Informa todos os eventos em tempo real no docker, como criação de container, network, exclusão, etc. |
+
 
 ---
 
