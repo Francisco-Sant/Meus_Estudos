@@ -55,3 +55,67 @@
 ## Rollback
 - `kubectl rollout undo deploy "nome do deployment criado"`  
   Faz o rollback da versão do deployment.
+
+# Comandos úteis e avançados
+
+## Endpoints e Logs
+- `kubectl get endpoints`  
+  Exibe os IPs e portas vinculadas aos services.
+- `kubectl get endpointslice`  
+  Exibe a mesma informação do endpoints, mas em arrays.
+- `kubectl logs "pod-name"`  
+  Exibe os logs do pod em execução.
+- `kubectl exec "pod-name"`  
+  Permite executar comandos dentro do pod.
+- `kubectl exec -it "pod-name" -- /bin/bash`  
+  Permite acessar o pod via terminal.
+
+## Cluster e Gerenciamento
+- `kubeadm init`  
+  Inicia o cluster Kubernetes admin da forma mais simples.
+- `kind create cluster`  
+  Criação do cluster com kind.
+- `kind create cluster --name "cluster-name"`  
+  Cria um cluster especificando o nome.
+- `kind get clusters`  
+  Verifica os nomes dos clusters criados.
+- `kind delete cluster --name "cluster-name"`  
+  Deleta o cluster.
+- `kind create cluster --name "cluster-name" --config "manifetos.yaml"`  
+  Criação do cluster com alguns nodes, pois o kind trabalha com configuração de arquivos para subir um cluster com redundância.
+- `kind load --name "name-do-cluster-criado" docker-image "name-da-imagem-criada"`  
+  Usado para criar os pods com a imagem local. Depois que rodar este comando é preciso rodar o manifesto de criação dos containers (pods).
+- `code ~/.kube/config`  
+  Abre as configurações do cluster no VS Code para modificação.
+
+## ConfigMap
+- `kubectl get configmap`  
+  Retorna os configmaps existentes no cluster Kubernetes.
+- `kubectl create configmap "name-do-configmap" --from-literal=CHAVE="valor"`  
+  Cria um configmap (variável de ambiente do pod). OBS: não recomendado em produção pois não oculta as informações.
+- `kubectl describe configmap "name-do-configmap"`  
+  Exibe as informações do configmap como chave e valor.
+- `kubectl delete configmap "name-configmap"`  
+  Deleta o configmap.
+- `kubectl create configmap "name-do-configmap" --from-literal=CHAVE="valor" --from-literal=CHAVE="valor" --from-file arquivo.config`  
+  Exemplo de criação de dois configmaps usando um arquivo.
+- `kubectl apply -f "configmap.yaml"`  
+  Cria configmap a partir de um manifesto de configuração.
+
+## Secrets
+- `kubectl get secrets`  
+  Verifica os secrets.
+- `kubectl create secret generic "name-secret" --from-literal=CHAVE="valor" --from-file arquivo.config`  
+  Criação de secrets de forma imperativa.
+- `kubectl apply -f secret.yaml`  
+  Criação de secrets via manifesto.
+
+## Namespace e Outros
+- `kubectl get namespace`  
+  Verifica os namespaces no cluster.
+- `kubectl get all -n kube-system`  
+  Verifica todos os elementos rodando no namespace kube-system (pode verificar qualquer namespace existente).
+- `kubectl delete -f .`  
+  Deleta todas as configurações em manifestos, como clusters, pods, etc.
+- `kubectl apply -f .`  
+  Cria todas as configurações em manifestos, como clusters, pods, etc.
